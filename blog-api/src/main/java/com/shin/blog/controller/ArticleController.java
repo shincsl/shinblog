@@ -32,12 +32,12 @@ public class ArticleController {
     @LogAnnotation(module = "文章", operator = "获取文章列表")
 //    @Cache(expire = 5 * 60 * 1000, name = "listArticle")
     @CachePut(key = "#root.methodName + #pageParams.toString()")
-    public Result listArticle(@RequestBody PageParams pageParams) throws IOException {
+    public Result listArticle(@RequestBody PageParams pageParams) {
         return articleService.listArticle(pageParams);
     }
 
     @PostMapping("view/{id}")
-    public Result findArticleById(@PathVariable("id") Long articleId) {
+    public Result findArticleById(@PathVariable("id") String articleId) {
         return articleService.findArticleById(articleId);
     }
 

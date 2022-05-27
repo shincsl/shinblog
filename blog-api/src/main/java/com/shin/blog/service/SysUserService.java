@@ -1,17 +1,15 @@
 package com.shin.blog.service;
 
-import com.shin.blog.dao.pojo.SysUser;
+import com.shin.blog.jooq.model.entity.ScSysUser;
+import com.shin.blog.jooq.model.generated.tables.records.ScSysUserRecord;
 import com.shin.blog.vo.Result;
-import com.shin.blog.vo.UserVo;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface SysUserService {
 
-    UserVo findUserVoById(Long id);
+    ScSysUser findUserVoById(Long id);
 
-    SysUser findUserById(Long id);
-
-    SysUser findUser(String account, String password);
+    ScSysUser findUser(String account, String password);
 
     /**
      * 根据token查询用户信息
@@ -27,14 +25,14 @@ public interface SysUserService {
      * @param account
      * @return
      */
-    SysUser findUserByAccount(String account);
+    ScSysUserRecord findUserByAccount(String account);
 
     /**
      * 保存用户
      *
      * @param sysUser
      */
-    void save(SysUser sysUser);
+    void save(ScSysUserRecord sysUser);
 
     /**
      * 上传头像

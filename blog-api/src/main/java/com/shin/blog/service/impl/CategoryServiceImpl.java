@@ -1,68 +1,51 @@
 package com.shin.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.shin.blog.dao.mapper.CategoryMapper;
-import com.shin.blog.dao.pojo.Category;
+import com.shin.blog.jooq.model.entity.ScCategory;
+import com.shin.blog.jooq.model.generated.Tables;
+import com.shin.blog.jooq.model.generated.tables.TScCategory;
+import com.shin.blog.jooq.model.generated.tables.daos.ScCategoryDao;
 import com.shin.blog.service.CategoryService;
-import com.shin.blog.vo.CategoryVo;
 import com.shin.blog.vo.Result;
-import org.springframework.beans.BeanUtils;
+import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    CategoryMapper categoryMapper;
+    DSLContext dslContext;
 
     @Override
-    public CategoryVo findCategoryById(Long categoryId) {
-        Category category = categoryMapper.selectById(categoryId);
-        CategoryVo categoryVo = new CategoryVo();
-        BeanUtils.copyProperties(category,categoryVo);
-        categoryVo.setId(String.valueOf(category.getId()));
-        return categoryVo;
+    public ScCategory findCategoryById(String categoryId) {
+        ScCategoryDao scCategoryDao = new ScCategoryDao(dslContext.configuration());
+        ScCategory scCategory = scCategoryDao.fetchOneById(categoryId);
+        return scCategory;
     }
 
     @Override
     public Result findAll() {
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(Category::getId,Category::getCategoryName);
-        List<Category> categories = categoryMapper.selectList(queryWrapper);
+        TScCategory category = Tables.SC_CATEGORY;
+        List<ScCategory> scCategories = dslContext.select(category.ID, category.CATEGORY_NAME).from(category).fetchInto(ScCategory.class);
         //页面交互的对象
-        return Result.success(copyList(categories));
+        return Result.success(scCategories);
     }
 
     @Override
     public Result findAllDetail() {
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        List<Category> categories = categoryMapper.selectList(queryWrapper);
+        List<ScCategory> scCategories = dslContext.select().from(Tables.SC_CATEGORY).fetchInto(ScCategory.class);
         //页面交互的对象
-        return Result.success(copyList(categories));
+        return Result.success(scCategories);
     }
 
     @Override
-    public Result findAllDetailById(Long id) {
-        Category category = categoryMapper.selectById(id);
-        return Result.success(copy(category));
+    public Result findAllDetailById(String id) {
+        ScCategoryDao scCategoryDao = new ScCategoryDao(dslContext.configuration());
+        ScCategory scCategory = scCategoryDao.fetchOneById(id);
+        return Result.success(scCategory);
     }
 
-    public CategoryVo copy(Category category){
-        CategoryVo categoryVo = new CategoryVo();
-        BeanUtils.copyProperties(category,categoryVo);
-        categoryVo.setId(String.valueOf(category.getId()));
-        return categoryVo;
-    }
-    public List<CategoryVo> copyList(List<Category> categoryList){
-        List<CategoryVo> categoryVoList = new ArrayList<>();
-        for (Category category : categoryList) {
-            categoryVoList.add(copy(category));
-        }
-        return categoryVoList;
-    }
 
 }

@@ -1,7 +1,7 @@
 package com.shin.blog.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.shin.blog.dao.pojo.SysUser;
+import com.shin.blog.jooq.model.entity.ScSysUser;
 import com.shin.blog.service.LoginService;
 import com.shin.blog.utils.UserThreadLocal;
 import com.shin.blog.vo.ErrorCode;
@@ -49,7 +49,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             response.getWriter().print(JSON.toJSONString(result));
             return false;
         }
-        SysUser sysUser = loginService.checkToken(token);
+        ScSysUser sysUser = loginService.checkToken(token);
         if (sysUser == null){
             Result result = Result.error(ErrorCode.NO_LOGIN.getCode(), ErrorCode.NO_LOGIN.getMsg());
             response.setContentType("application/json;charset=utf-8");

@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row4;
@@ -51,7 +50,7 @@ public class TScCategory extends TableImpl<ScCategoryRecord> {
     /**
      * The column <code>shinblog.sc_category.id</code>.
      */
-    public final TableField<ScCategoryRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ScCategoryRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_category.avatar</code>.
@@ -107,11 +106,6 @@ public class TScCategory extends TableImpl<ScCategoryRecord> {
     }
 
     @Override
-    public Identity<ScCategoryRecord, Long> getIdentity() {
-        return (Identity<ScCategoryRecord, Long>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<ScCategoryRecord> getPrimaryKey() {
         return Keys.KEY_SC_CATEGORY_PRIMARY;
     }
@@ -152,7 +146,7 @@ public class TScCategory extends TableImpl<ScCategoryRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<Long, String, String, String> fieldsRow() {
+    public Row4<String, String, String, String> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 }

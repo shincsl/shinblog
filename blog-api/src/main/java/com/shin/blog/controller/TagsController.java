@@ -32,7 +32,7 @@ public class TagsController {
     }
 
     @GetMapping("detail/{id}")
-    public Result findAllDetailById(@PathVariable("id") Long id){
+    public Result findAllDetailById(@PathVariable("id") String id){
         return tagService.findAllDetailById(id);
     }
 }

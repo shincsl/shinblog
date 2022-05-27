@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ScTagDao extends ExtendDAOImpl<ScTagRecord, ScTag, Long> {
+public class ScTagDao extends ExtendDAOImpl<ScTagRecord, ScTag, String> {
 
     /**
      * Create a new ScTagDao without any configuration
@@ -39,28 +39,28 @@ public class ScTagDao extends ExtendDAOImpl<ScTagRecord, ScTag, Long> {
     }
 
     @Override
-    public Long getId(ScTag object) {
+    public String getId(ScTag object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScTag> fetchRangeOfId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScTag> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScTag.SC_TAG.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<ScTag> fetchById(Long... values) {
+    public List<ScTag> fetchById(String... values) {
         return fetch(TScTag.SC_TAG.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public ScTag fetchOneById(Long value) {
+    public ScTag fetchOneById(String value) {
         return fetchOne(TScTag.SC_TAG.ID, value);
     }
 

@@ -9,6 +9,7 @@ import com.shin.blog.jooq.model.entity.ScComment;
 import com.shin.blog.jooq.model.generated.tables.TScComment;
 import com.shin.blog.jooq.model.generated.tables.records.ScCommentRecord;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.jooq.Configuration;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ScCommentDao extends ExtendDAOImpl<ScCommentRecord, ScComment, Long> {
+public class ScCommentDao extends ExtendDAOImpl<ScCommentRecord, ScComment, String> {
 
     /**
      * Create a new ScCommentDao without any configuration
@@ -39,28 +40,28 @@ public class ScCommentDao extends ExtendDAOImpl<ScCommentRecord, ScComment, Long
     }
 
     @Override
-    public Long getId(ScComment object) {
+    public String getId(ScComment object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScComment> fetchRangeOfId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScComment> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScComment.SC_COMMENT.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<ScComment> fetchById(Long... values) {
+    public List<ScComment> fetchById(String... values) {
         return fetch(TScComment.SC_COMMENT.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public ScComment fetchOneById(Long value) {
+    public ScComment fetchOneById(String value) {
         return fetchOne(TScComment.SC_COMMENT.ID, value);
     }
 
@@ -79,30 +80,30 @@ public class ScCommentDao extends ExtendDAOImpl<ScCommentRecord, ScComment, Long
     }
 
     /**
-     * Fetch records that have <code>create_date BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>create_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScComment> fetchRangeOfCreateDate(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(TScComment.SC_COMMENT.CREATE_DATE, lowerInclusive, upperInclusive);
+    public List<ScComment> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+        return fetchRange(TScComment.SC_COMMENT.CREATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>create_date IN (values)</code>
+     * Fetch records that have <code>create_time IN (values)</code>
      */
-    public List<ScComment> fetchByCreateDate(Long... values) {
-        return fetch(TScComment.SC_COMMENT.CREATE_DATE, values);
+    public List<ScComment> fetchByCreateTime(Timestamp... values) {
+        return fetch(TScComment.SC_COMMENT.CREATE_TIME, values);
     }
 
     /**
      * Fetch records that have <code>article_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScComment> fetchRangeOfArticleId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScComment> fetchRangeOfArticleId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScComment.SC_COMMENT.ARTICLE_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>article_id IN (values)</code>
      */
-    public List<ScComment> fetchByArticleId(Long... values) {
+    public List<ScComment> fetchByArticleId(String... values) {
         return fetch(TScComment.SC_COMMENT.ARTICLE_ID, values);
     }
 
@@ -123,14 +124,14 @@ public class ScCommentDao extends ExtendDAOImpl<ScCommentRecord, ScComment, Long
     /**
      * Fetch records that have <code>parent_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScComment> fetchRangeOfParentId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScComment> fetchRangeOfParentId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScComment.SC_COMMENT.PARENT_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>parent_id IN (values)</code>
      */
-    public List<ScComment> fetchByParentId(Long... values) {
+    public List<ScComment> fetchByParentId(String... values) {
         return fetch(TScComment.SC_COMMENT.PARENT_ID, values);
     }
 
@@ -151,14 +152,14 @@ public class ScCommentDao extends ExtendDAOImpl<ScCommentRecord, ScComment, Long
     /**
      * Fetch records that have <code>level BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScComment> fetchRangeOfLevel(String lowerInclusive, String upperInclusive) {
+    public List<ScComment> fetchRangeOfLevel(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(TScComment.SC_COMMENT.LEVEL, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>level IN (values)</code>
      */
-    public List<ScComment> fetchByLevel(String... values) {
+    public List<ScComment> fetchByLevel(Integer... values) {
         return fetch(TScComment.SC_COMMENT.LEVEL, values);
     }
 }

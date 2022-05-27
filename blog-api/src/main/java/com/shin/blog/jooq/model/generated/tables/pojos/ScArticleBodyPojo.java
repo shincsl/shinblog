@@ -15,10 +15,10 @@ public class ScArticleBodyPojo implements IScArticleBody {
 
     private static final long serialVersionUID = 1L;
 
-    private Long   id;
+    private String id;
     private String content;
     private String contentHtml;
-    private Long   articleId;
+    private String articleId;
 
     public ScArticleBodyPojo() {}
 
@@ -30,10 +30,10 @@ public class ScArticleBodyPojo implements IScArticleBody {
     }
 
     public ScArticleBodyPojo(
-        Long   id,
+        String id,
         String content,
         String contentHtml,
-        Long   articleId
+        String articleId
     ) {
         this.id = id;
         this.content = content;
@@ -45,7 +45,7 @@ public class ScArticleBodyPojo implements IScArticleBody {
      * Getter for <code>shinblog.sc_article_body.id</code>.
      */
     @Override
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -53,7 +53,7 @@ public class ScArticleBodyPojo implements IScArticleBody {
      * Setter for <code>shinblog.sc_article_body.id</code>.
      */
     @Override
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -93,7 +93,7 @@ public class ScArticleBodyPojo implements IScArticleBody {
      * Getter for <code>shinblog.sc_article_body.article_id</code>.
      */
     @Override
-    public Long getArticleId() {
+    public String getArticleId() {
         return this.articleId;
     }
 
@@ -101,7 +101,7 @@ public class ScArticleBodyPojo implements IScArticleBody {
      * Setter for <code>shinblog.sc_article_body.article_id</code>.
      */
     @Override
-    public void setArticleId(Long articleId) {
+    public void setArticleId(String articleId) {
         this.articleId = articleId;
     }
 

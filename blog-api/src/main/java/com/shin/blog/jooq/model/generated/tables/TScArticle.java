@@ -8,15 +8,15 @@ import com.shin.blog.jooq.model.generated.Keys;
 import com.shin.blog.jooq.model.generated.Shinblog;
 import com.shin.blog.jooq.model.generated.tables.records.ScArticleRecord;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -51,7 +51,17 @@ public class TScArticle extends TableImpl<ScArticleRecord> {
     /**
      * The column <code>shinblog.sc_article.id</code>.
      */
-    public final TableField<ScArticleRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ScArticleRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
+
+    /**
+     * The column <code>shinblog.sc_article.deleted</code>. 逻辑删除标识,0标识未删除,1标识已删除
+     */
+    public final TableField<ScArticleRecord, Integer> DELETED = createField(DSL.name("deleted"), SQLDataType.INTEGER.defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "逻辑删除标识,0标识未删除,1标识已删除");
+
+    /**
+     * The column <code>shinblog.sc_article.status</code>. 状态00在用01作废
+     */
+    public final TableField<ScArticleRecord, String> STATUS = createField(DSL.name("status"), SQLDataType.VARCHAR(8).defaultValue(DSL.inline("00", SQLDataType.VARCHAR)), this, "状态00在用01作废");
 
     /**
      * The column <code>shinblog.sc_article.comment_counts</code>. 评论数量
@@ -61,12 +71,12 @@ public class TScArticle extends TableImpl<ScArticleRecord> {
     /**
      * The column <code>shinblog.sc_article.create_time</code>. 创建时间
      */
-    public final TableField<ScArticleRecord, Long> CREATE_TIME = createField(DSL.name("create_time"), SQLDataType.BIGINT, this, "创建时间");
+    public final TableField<ScArticleRecord, Timestamp> CREATE_TIME = createField(DSL.name("create_time"), SQLDataType.TIMESTAMP(0).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.TIMESTAMP)), this, "创建时间");
 
     /**
      * The column <code>shinblog.sc_article.update_time</code>. 更新时间
      */
-    public final TableField<ScArticleRecord, Long> UPDATE_TIME = createField(DSL.name("update_time"), SQLDataType.BIGINT, this, "更新时间");
+    public final TableField<ScArticleRecord, Timestamp> UPDATE_TIME = createField(DSL.name("update_time"), SQLDataType.TIMESTAMP(0).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.TIMESTAMP)), this, "更新时间");
 
     /**
      * The column <code>shinblog.sc_article.summary</code>. 简介
@@ -96,12 +106,12 @@ public class TScArticle extends TableImpl<ScArticleRecord> {
     /**
      * The column <code>shinblog.sc_article.body_id</code>. 内容id
      */
-    public final TableField<ScArticleRecord, Long> BODY_ID = createField(DSL.name("body_id"), SQLDataType.BIGINT, this, "内容id");
+    public final TableField<ScArticleRecord, String> BODY_ID = createField(DSL.name("body_id"), SQLDataType.VARCHAR(32), this, "内容id");
 
     /**
      * The column <code>shinblog.sc_article.category_id</code>. 类别id
      */
-    public final TableField<ScArticleRecord, Long> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.BIGINT, this, "类别id");
+    public final TableField<ScArticleRecord, String> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.VARCHAR(32), this, "类别id");
 
     private TScArticle(Name alias, Table<ScArticleRecord> aliased) {
         this(alias, aliased, null);
@@ -142,11 +152,6 @@ public class TScArticle extends TableImpl<ScArticleRecord> {
     }
 
     @Override
-    public Identity<ScArticleRecord, Long> getIdentity() {
-        return (Identity<ScArticleRecord, Long>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<ScArticleRecord> getPrimaryKey() {
         return Keys.KEY_SC_ARTICLE_PRIMARY;
     }
@@ -183,11 +188,11 @@ public class TScArticle extends TableImpl<ScArticleRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, Integer, Long, Long, String, String, Integer, Integer, Long, Long, Long> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row13<String, Integer, String, Integer, Timestamp, Timestamp, String, String, Integer, Integer, Long, String, String> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 }

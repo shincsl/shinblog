@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row3;
@@ -51,7 +50,7 @@ public class TScTag extends TableImpl<ScTagRecord> {
     /**
      * The column <code>shinblog.sc_tag.id</code>.
      */
-    public final TableField<ScTagRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ScTagRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_tag.avatar</code>.
@@ -102,11 +101,6 @@ public class TScTag extends TableImpl<ScTagRecord> {
     }
 
     @Override
-    public Identity<ScTagRecord, Long> getIdentity() {
-        return (Identity<ScTagRecord, Long>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<ScTagRecord> getPrimaryKey() {
         return Keys.KEY_SC_TAG_PRIMARY;
     }
@@ -147,7 +141,7 @@ public class TScTag extends TableImpl<ScTagRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Long, String, String> fieldsRow() {
+    public Row3<String, String, String> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 }

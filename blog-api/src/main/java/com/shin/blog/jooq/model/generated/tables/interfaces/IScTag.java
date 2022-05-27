@@ -16,12 +16,12 @@ public interface IScTag extends Serializable {
     /**
      * Setter for <code>shinblog.sc_tag.id</code>.
      */
-    public void setId(Long value);
+    public void setId(String value);
 
     /**
      * Getter for <code>shinblog.sc_tag.id</code>.
      */
-    public Long getId();
+    public String getId();
 
     /**
      * Setter for <code>shinblog.sc_tag.avatar</code>.

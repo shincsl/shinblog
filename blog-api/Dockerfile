@@ -1,4 +1,6 @@
-FROM openjdk:8-jdk-alpine
+FROM java:8
 VOLUME /tmp
-COPY ./target/blog.jar blog.jar
-ENTRYPOINT ["java","-jar","/blog.jar", "&"]
+ADD blog-api-1.0-SNAPSHOT.jar app.jar
+RUN bash -c 'touch /app.jar'
+ENTRYPOINT ["java","-jar","/app.jar","--spring.profiles.active=prod"]
+EXPOSE 9000

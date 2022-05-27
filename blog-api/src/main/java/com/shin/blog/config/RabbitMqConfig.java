@@ -1,6 +1,6 @@
 package com.shin.blog.config;
 
-import com.shin.blog.constants.MqConstants;
+import com.shin.blog.vo.constants.MqConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

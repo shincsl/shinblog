@@ -10,7 +10,7 @@ public interface CommentService {
      * @param id
      * @return
      */
-    Result commentByArticleId(Long id);
+    Result commentByArticleId(String id);
 
     Result comment(CommentParam commentParam);
 }

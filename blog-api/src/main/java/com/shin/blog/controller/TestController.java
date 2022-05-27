@@ -11,6 +11,6 @@ public class TestController {
 
     @GetMapping
     public Result test(){
-        return Result.success(null);
+        return Result.success("测试测试");
     }
 }

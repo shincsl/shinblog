@@ -16,32 +16,32 @@ public interface IScArticleTag extends Serializable {
     /**
      * Setter for <code>shinblog.sc_article_tag.id</code>.
      */
-    public void setId(Long value);
+    public void setId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article_tag.id</code>.
      */
-    public Long getId();
+    public String getId();
 
     /**
      * Setter for <code>shinblog.sc_article_tag.article_id</code>.
      */
-    public void setArticleId(Long value);
+    public void setArticleId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article_tag.article_id</code>.
      */
-    public Long getArticleId();
+    public String getArticleId();
 
     /**
      * Setter for <code>shinblog.sc_article_tag.tag_id</code>.
      */
-    public void setTagId(Long value);
+    public void setTagId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article_tag.tag_id</code>.
      */
-    public Long getTagId();
+    public String getTagId();
 
     // -------------------------------------------------------------------------
     // FROM and INTO

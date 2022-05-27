@@ -15,9 +15,9 @@ public class ScArticleTagPojo implements IScArticleTag {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private Long articleId;
-    private Long tagId;
+    private String id;
+    private String articleId;
+    private String tagId;
 
     public ScArticleTagPojo() {}
 
@@ -28,9 +28,9 @@ public class ScArticleTagPojo implements IScArticleTag {
     }
 
     public ScArticleTagPojo(
-        Long id,
-        Long articleId,
-        Long tagId
+        String id,
+        String articleId,
+        String tagId
     ) {
         this.id = id;
         this.articleId = articleId;
@@ -41,7 +41,7 @@ public class ScArticleTagPojo implements IScArticleTag {
      * Getter for <code>shinblog.sc_article_tag.id</code>.
      */
     @Override
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -49,7 +49,7 @@ public class ScArticleTagPojo implements IScArticleTag {
      * Setter for <code>shinblog.sc_article_tag.id</code>.
      */
     @Override
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -57,7 +57,7 @@ public class ScArticleTagPojo implements IScArticleTag {
      * Getter for <code>shinblog.sc_article_tag.article_id</code>.
      */
     @Override
-    public Long getArticleId() {
+    public String getArticleId() {
         return this.articleId;
     }
 
@@ -65,7 +65,7 @@ public class ScArticleTagPojo implements IScArticleTag {
      * Setter for <code>shinblog.sc_article_tag.article_id</code>.
      */
     @Override
-    public void setArticleId(Long articleId) {
+    public void setArticleId(String articleId) {
         this.articleId = articleId;
     }
 
@@ -73,7 +73,7 @@ public class ScArticleTagPojo implements IScArticleTag {
      * Getter for <code>shinblog.sc_article_tag.tag_id</code>.
      */
     @Override
-    public Long getTagId() {
+    public String getTagId() {
         return this.tagId;
     }
 
@@ -81,7 +81,7 @@ public class ScArticleTagPojo implements IScArticleTag {
      * Setter for <code>shinblog.sc_article_tag.tag_id</code>.
      */
     @Override
-    public void setTagId(Long tagId) {
+    public void setTagId(String tagId) {
         this.tagId = tagId;
     }
 

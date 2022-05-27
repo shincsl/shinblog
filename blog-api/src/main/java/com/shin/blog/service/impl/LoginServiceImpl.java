@@ -1,7 +1,8 @@
 package com.shin.blog.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.shin.blog.dao.pojo.SysUser;
+import com.shin.blog.jooq.model.entity.ScSysUser;
+import com.shin.blog.jooq.model.generated.tables.records.ScSysUserRecord;
 import com.shin.blog.service.LoginService;
 import com.shin.blog.service.SysUserService;
 import com.shin.blog.utils.JWTUtils;
@@ -45,7 +46,7 @@ public class LoginServiceImpl implements LoginService {
             return Result.error(ErrorCode.PARAMS_ERROR.getCode(), ErrorCode.PARAMS_ERROR.getMsg());
         }
         password = DigestUtils.md5Hex(password + salt);
-        SysUser sysUser = userService.findUser(account, password);
+        ScSysUser sysUser = userService.findUser(account, password);
         if (sysUser == null) {
             return Result.error(ErrorCode.ACCOUNT_PWD_NOT_EXIST.getCode(), ErrorCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
         }
@@ -56,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public SysUser checkToken(String token) {
+    public ScSysUser checkToken(String token) {
         if (StringUtils.isBlank(token)) {
             return null;
         }
@@ -68,7 +69,7 @@ public class LoginServiceImpl implements LoginService {
         if (StringUtils.isBlank(userJson)) {
             return null;
         }
-        SysUser sysUser = JSON.parseObject(userJson, SysUser.class);
+        ScSysUser sysUser = JSON.parseObject(userJson, ScSysUser.class);
         return sysUser;
     }
 
@@ -94,19 +95,18 @@ public class LoginServiceImpl implements LoginService {
         if (StringUtils.isBlank(account) || StringUtils.isBlank(password) || StringUtils.isBlank(nickname)) {
             return Result.error(ErrorCode.PARAMS_ERROR.getCode(), ErrorCode.PARAMS_ERROR.getMsg());
         }
-        SysUser sysUser = userService.findUserByAccount(account);
+        ScSysUserRecord sysUser = userService.findUserByAccount(account);
         if (sysUser != null) {
             return Result.error(ErrorCode.ACCOUNT_EXIST.getCode(), ErrorCode.ACCOUNT_EXIST.getMsg());
         }
-        sysUser = new SysUser();
         sysUser.setNickname(nickname);
         sysUser.setAccount(account);
         sysUser.setPassword(DigestUtils.md5Hex(password + salt));
         sysUser.setCreateDate(System.currentTimeMillis());
         sysUser.setLastLogin(System.currentTimeMillis());
         sysUser.setAvatar("/static/admin.png");
-        sysUser.setAdmin(1); //1 为true
-        sysUser.setDeleted(0); // 0 为false
+        sysUser.setAdmin(true); //1 为true
+        sysUser.setDeleted(false); // 0 为false
         sysUser.setSalt("");
         sysUser.setStatus("");
         sysUser.setEmail("");

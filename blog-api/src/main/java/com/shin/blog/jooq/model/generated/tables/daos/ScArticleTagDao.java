@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ScArticleTagDao extends ExtendDAOImpl<ScArticleTagRecord, ScArticleTag, Long> {
+public class ScArticleTagDao extends ExtendDAOImpl<ScArticleTagRecord, ScArticleTag, String> {
 
     /**
      * Create a new ScArticleTagDao without any configuration
@@ -39,56 +39,56 @@ public class ScArticleTagDao extends ExtendDAOImpl<ScArticleTagRecord, ScArticle
     }
 
     @Override
-    public Long getId(ScArticleTag object) {
+    public String getId(ScArticleTag object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticleTag> fetchRangeOfId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticleTag> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticleTag.SC_ARTICLE_TAG.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<ScArticleTag> fetchById(Long... values) {
+    public List<ScArticleTag> fetchById(String... values) {
         return fetch(TScArticleTag.SC_ARTICLE_TAG.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public ScArticleTag fetchOneById(Long value) {
+    public ScArticleTag fetchOneById(String value) {
         return fetchOne(TScArticleTag.SC_ARTICLE_TAG.ID, value);
     }
 
     /**
      * Fetch records that have <code>article_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticleTag> fetchRangeOfArticleId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticleTag> fetchRangeOfArticleId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticleTag.SC_ARTICLE_TAG.ARTICLE_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>article_id IN (values)</code>
      */
-    public List<ScArticleTag> fetchByArticleId(Long... values) {
+    public List<ScArticleTag> fetchByArticleId(String... values) {
         return fetch(TScArticleTag.SC_ARTICLE_TAG.ARTICLE_ID, values);
     }
 
     /**
      * Fetch records that have <code>tag_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticleTag> fetchRangeOfTagId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticleTag> fetchRangeOfTagId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticleTag.SC_ARTICLE_TAG.TAG_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>tag_id IN (values)</code>
      */
-    public List<ScArticleTag> fetchByTagId(Long... values) {
+    public List<ScArticleTag> fetchByTagId(String... values) {
         return fetch(TScArticleTag.SC_ARTICLE_TAG.TAG_ID, values);
     }
 }

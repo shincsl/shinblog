@@ -1,20 +1,21 @@
 package com.shin.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.shin.blog.dao.mapper.CommentMapper;
-import com.shin.blog.dao.pojo.Comment;
-import com.shin.blog.dao.pojo.SysUser;
+import com.shin.blog.jooq.model.entity.ScComment;
+import com.shin.blog.jooq.model.entity.ScSysUser;
+import com.shin.blog.jooq.model.generated.Tables;
+import com.shin.blog.jooq.model.generated.tables.TScComment;
+import com.shin.blog.jooq.model.generated.tables.records.ScCommentRecord;
 import com.shin.blog.service.CommentService;
 import com.shin.blog.service.SysUserService;
+import com.shin.blog.utils.UUIDUtil;
 import com.shin.blog.utils.UserThreadLocal;
-import com.shin.blog.vo.CommentVo;
 import com.shin.blog.vo.Result;
-import com.shin.blog.vo.UserVo;
 import com.shin.blog.vo.params.CommentParam;
-import org.springframework.beans.BeanUtils;
+import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,78 +23,73 @@ import java.util.List;
 public class commentServiceImpl implements CommentService {
 
     @Autowired
-    CommentMapper commentMapper;
-
-    @Autowired
     SysUserService sysUserService;
 
-    @Override
-    public Result commentByArticleId(Long id) {
+    @Autowired
+    DSLContext dslContext;
 
-        LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Comment::getArticleId,id);
-        queryWrapper.eq(Comment::getLevel,1);
-        List<Comment> comments = commentMapper.selectList(queryWrapper);
-        List<CommentVo> commentVoList = copyList(comments);
-        return Result.success(commentVoList);
+    @Override
+    public Result commentByArticleId(String id) {
+        TScComment comment = Tables.SC_COMMENT;
+        List<ScComment> comments = dslContext.selectFrom(comment).where(comment.ARTICLE_ID.eq(id).and(comment.LEVEL.eq(1))).orderBy(comment.CREATE_TIME.desc()).fetchInto(ScComment.class);
+        List<ScComment> commentList = copyList(comments);
+        return Result.success(commentList);
     }
 
     @Override
     public Result comment(CommentParam commentParam) {
-        SysUser sysUser = UserThreadLocal.get();
-        Comment comment = new Comment();
-        comment.setArticleId(commentParam.getArticleId());
-        comment.setAuthorId(sysUser.getId());
-        comment.setContent(commentParam.getContent());
-        comment.setCreateDate(System.currentTimeMillis());
-        Long parent = commentParam.getParent();
-        if (parent == null || parent == 0) {
-            comment.setLevel(1);
-        }else{
-            comment.setLevel(2);
+        ScSysUser sysUser = UserThreadLocal.get();
+        TScComment comment = Tables.SC_COMMENT;
+        ScCommentRecord commentRecord = dslContext.newRecord(comment);
+        commentRecord.set(comment.ID, UUIDUtil.creatUUID());
+        commentRecord.set(comment.ARTICLE_ID, commentParam.getArticleId());
+        commentRecord.set(comment.AUTHOR_ID, sysUser.getId());
+        commentRecord.set(comment.CONTENT, commentParam.getContent());
+        commentRecord.set(comment.CREATE_TIME, new Timestamp(System.currentTimeMillis()));
+        String parent = commentParam.getParent();
+        if (parent == "" || parent == null) {
+            commentRecord.set(comment.LEVEL, 1);
+        } else {
+            commentRecord.set(comment.LEVEL, 2);
         }
-        comment.setParentId(parent == null ? 0 : parent);
+        commentRecord.set(comment.PARENT_ID, (parent == "" || parent == null) ? "" : parent);
         Long toUserId = commentParam.getToUserId();
-        comment.setToUid(toUserId == null ? 0 : toUserId);
-        this.commentMapper.insert(comment);
+        commentRecord.set(comment.TO_UID, toUserId == null ? 0 : toUserId);
+        commentRecord.insert();
         return Result.success(null);
     }
 
-    private List<CommentVo> copyList(List<Comment> comments) {
-        List<CommentVo> commentVoList = new ArrayList<>();
-        for (Comment comment : comments) {
-            commentVoList.add(copy(comment));
+    private List<ScComment> copyList(List<ScComment> comments) {
+        List<ScComment> commentList = new ArrayList<>();
+        for (ScComment comment : comments) {
+            commentList.add(copy(comment));
         }
-        return commentVoList;
+        return commentList;
     }
 
-    private CommentVo copy(Comment comment) {
-        CommentVo commentVo = new CommentVo();
-        BeanUtils.copyProperties(comment,commentVo);
-        commentVo.setId(String.valueOf(comment.getId()));
+    private ScComment copy(ScComment comment) {
 
         Long authorId = comment.getAuthorId();
-        UserVo userVo = sysUserService.findUserVoById(authorId);
-        commentVo.setAuthor(userVo);
+        ScSysUser userVo = sysUserService.findUserVoById(authorId);
+        comment.setAuthor(userVo);
         //子评论
         Integer level = comment.getLevel();
-        if (1 == level){
-            Long id = comment.getId();
-            List<CommentVo> commentVoList = findCommentByParentId(id);
-            commentVo.setChildrens(commentVoList);
+        if (1 == level) {
+            String id = comment.getId();
+            List<ScComment> commentList = findCommentByParentId(id);
+            comment.setChildrens(commentList);
         }
-        if (level > 1){
+        if (level > 1) {
             Long toUid = comment.getToUid();
-            UserVo toUserVo = sysUserService.findUserVoById(toUid);
-            commentVo.setToUser(toUserVo);
+            ScSysUser toUserVo = sysUserService.findUserVoById(toUid);
+            comment.setToUser(toUserVo);
         }
-        return commentVo;
+        return comment;
     }
 
-    private List<CommentVo> findCommentByParentId(Long id) {
-        LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Comment::getParentId,id);
-        queryWrapper.eq(Comment::getLevel,2);
-        return copyList(commentMapper.selectList(queryWrapper));
+    private List<ScComment> findCommentByParentId(String id) {
+        TScComment comment = Tables.SC_COMMENT;
+        List<ScComment> commentList = dslContext.selectFrom(comment).where(comment.PARENT_ID.eq(id).and(comment.LEVEL.eq(2))).fetchInto(ScComment.class);
+        return copyList(commentList);
     }
 }

@@ -5,6 +5,7 @@ package com.shin.blog.jooq.model.generated.tables.interfaces;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 
 /**
@@ -16,12 +17,12 @@ public interface IScComment extends Serializable {
     /**
      * Setter for <code>shinblog.sc_comment.id</code>.
      */
-    public void setId(Long value);
+    public void setId(String value);
 
     /**
      * Getter for <code>shinblog.sc_comment.id</code>.
      */
-    public Long getId();
+    public String getId();
 
     /**
      * Setter for <code>shinblog.sc_comment.content</code>.
@@ -34,24 +35,24 @@ public interface IScComment extends Serializable {
     public String getContent();
 
     /**
-     * Setter for <code>shinblog.sc_comment.create_date</code>.
+     * Setter for <code>shinblog.sc_comment.create_time</code>.
      */
-    public void setCreateDate(Long value);
+    public void setCreateTime(Timestamp value);
 
     /**
-     * Getter for <code>shinblog.sc_comment.create_date</code>.
+     * Getter for <code>shinblog.sc_comment.create_time</code>.
      */
-    public Long getCreateDate();
+    public Timestamp getCreateTime();
 
     /**
      * Setter for <code>shinblog.sc_comment.article_id</code>.
      */
-    public void setArticleId(Long value);
+    public void setArticleId(String value);
 
     /**
      * Getter for <code>shinblog.sc_comment.article_id</code>.
      */
-    public Long getArticleId();
+    public String getArticleId();
 
     /**
      * Setter for <code>shinblog.sc_comment.author_id</code>.
@@ -66,12 +67,12 @@ public interface IScComment extends Serializable {
     /**
      * Setter for <code>shinblog.sc_comment.parent_id</code>.
      */
-    public void setParentId(Long value);
+    public void setParentId(String value);
 
     /**
      * Getter for <code>shinblog.sc_comment.parent_id</code>.
      */
-    public Long getParentId();
+    public String getParentId();
 
     /**
      * Setter for <code>shinblog.sc_comment.to_uid</code>.
@@ -86,12 +87,12 @@ public interface IScComment extends Serializable {
     /**
      * Setter for <code>shinblog.sc_comment.level</code>.
      */
-    public void setLevel(String value);
+    public void setLevel(Integer value);
 
     /**
      * Getter for <code>shinblog.sc_comment.level</code>.
      */
-    public String getLevel();
+    public Integer getLevel();
 
     // -------------------------------------------------------------------------
     // FROM and INTO

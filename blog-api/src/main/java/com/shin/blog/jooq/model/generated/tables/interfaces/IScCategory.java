@@ -16,12 +16,12 @@ public interface IScCategory extends Serializable {
     /**
      * Setter for <code>shinblog.sc_category.id</code>.
      */
-    public void setId(Long value);
+    public void setId(String value);
 
     /**
      * Getter for <code>shinblog.sc_category.id</code>.
      */
-    public Long getId();
+    public String getId();
 
     /**
      * Setter for <code>shinblog.sc_category.avatar</code>.

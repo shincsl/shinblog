@@ -19,7 +19,7 @@ public interface ArticleService {
      * @param articleId
      * @return
      */
-    Result findArticleById(Long articleId);
+    Result findArticleById(String articleId);
 
     /**
      * 发布文章

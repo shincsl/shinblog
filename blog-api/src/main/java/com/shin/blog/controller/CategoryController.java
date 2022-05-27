@@ -26,7 +26,7 @@ public class CategoryController {
     }
 
     @GetMapping("detail/{id}")
-    public Result categoriesDetailById(@PathVariable("id") Long id){
+    public Result categoriesDetailById(@PathVariable("id") String id){
         return categoryService.findAllDetailById(id);
     }
 

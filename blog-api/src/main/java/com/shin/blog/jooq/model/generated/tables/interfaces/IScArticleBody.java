@@ -16,12 +16,12 @@ public interface IScArticleBody extends Serializable {
     /**
      * Setter for <code>shinblog.sc_article_body.id</code>.
      */
-    public void setId(Long value);
+    public void setId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article_body.id</code>.
      */
-    public Long getId();
+    public String getId();
 
     /**
      * Setter for <code>shinblog.sc_article_body.content</code>.
@@ -46,12 +46,12 @@ public interface IScArticleBody extends Serializable {
     /**
      * Setter for <code>shinblog.sc_article_body.article_id</code>.
      */
-    public void setArticleId(Long value);
+    public void setArticleId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article_body.article_id</code>.
      */
-    public Long getArticleId();
+    public String getArticleId();
 
     // -------------------------------------------------------------------------
     // FROM and INTO

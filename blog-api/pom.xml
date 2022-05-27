@@ -84,11 +84,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -170,7 +165,7 @@
                             <daos>true</daos>
                             <interfaces>true</interfaces>
                             <indexes>true</indexes>
-                            <javaTimeTypes>true</javaTimeTypes>
+                            <javaTimeTypes>false</javaTimeTypes>
                             <springAnnotations>true</springAnnotations>
                         </generate>
                         <database>

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ScArticleBodyDao extends ExtendDAOImpl<ScArticleBodyRecord, ScArticleBody, Long> {
+public class ScArticleBodyDao extends ExtendDAOImpl<ScArticleBodyRecord, ScArticleBody, String> {
 
     /**
      * Create a new ScArticleBodyDao without any configuration
@@ -39,28 +39,28 @@ public class ScArticleBodyDao extends ExtendDAOImpl<ScArticleBodyRecord, ScArtic
     }
 
     @Override
-    public Long getId(ScArticleBody object) {
+    public String getId(ScArticleBody object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticleBody> fetchRangeOfId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticleBody> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticleBody.SC_ARTICLE_BODY.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<ScArticleBody> fetchById(Long... values) {
+    public List<ScArticleBody> fetchById(String... values) {
         return fetch(TScArticleBody.SC_ARTICLE_BODY.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public ScArticleBody fetchOneById(Long value) {
+    public ScArticleBody fetchOneById(String value) {
         return fetchOne(TScArticleBody.SC_ARTICLE_BODY.ID, value);
     }
 
@@ -95,14 +95,14 @@ public class ScArticleBodyDao extends ExtendDAOImpl<ScArticleBodyRecord, ScArtic
     /**
      * Fetch records that have <code>article_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticleBody> fetchRangeOfArticleId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticleBody> fetchRangeOfArticleId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticleBody.SC_ARTICLE_BODY.ARTICLE_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>article_id IN (values)</code>
      */
-    public List<ScArticleBody> fetchByArticleId(Long... values) {
+    public List<ScArticleBody> fetchByArticleId(String... values) {
         return fetch(TScArticleBody.SC_ARTICLE_BODY.ARTICLE_ID, values);
     }
 }

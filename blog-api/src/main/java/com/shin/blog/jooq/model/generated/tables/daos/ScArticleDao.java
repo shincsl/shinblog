@@ -9,6 +9,7 @@ import com.shin.blog.jooq.model.entity.ScArticle;
 import com.shin.blog.jooq.model.generated.tables.TScArticle;
 import com.shin.blog.jooq.model.generated.tables.records.ScArticleRecord;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.jooq.Configuration;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ScArticleDao extends ExtendDAOImpl<ScArticleRecord, ScArticle, Long> {
+public class ScArticleDao extends ExtendDAOImpl<ScArticleRecord, ScArticle, String> {
 
     /**
      * Create a new ScArticleDao without any configuration
@@ -39,29 +40,57 @@ public class ScArticleDao extends ExtendDAOImpl<ScArticleRecord, ScArticle, Long
     }
 
     @Override
-    public Long getId(ScArticle object) {
+    public String getId(ScArticle object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticle> fetchRangeOfId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticle> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticle.SC_ARTICLE.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<ScArticle> fetchById(Long... values) {
+    public List<ScArticle> fetchById(String... values) {
         return fetch(TScArticle.SC_ARTICLE.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public ScArticle fetchOneById(Long value) {
+    public ScArticle fetchOneById(String value) {
         return fetchOne(TScArticle.SC_ARTICLE.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<ScArticle> fetchRangeOfDeleted(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(TScArticle.SC_ARTICLE.DELETED, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>deleted IN (values)</code>
+     */
+    public List<ScArticle> fetchByDeleted(Integer... values) {
+        return fetch(TScArticle.SC_ARTICLE.DELETED, values);
+    }
+
+    /**
+     * Fetch records that have <code>status BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<ScArticle> fetchRangeOfStatus(String lowerInclusive, String upperInclusive) {
+        return fetchRange(TScArticle.SC_ARTICLE.STATUS, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>status IN (values)</code>
+     */
+    public List<ScArticle> fetchByStatus(String... values) {
+        return fetch(TScArticle.SC_ARTICLE.STATUS, values);
     }
 
     /**
@@ -81,28 +110,28 @@ public class ScArticleDao extends ExtendDAOImpl<ScArticleRecord, ScArticle, Long
     /**
      * Fetch records that have <code>create_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticle> fetchRangeOfCreateTime(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticle> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TScArticle.SC_ARTICLE.CREATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>create_time IN (values)</code>
      */
-    public List<ScArticle> fetchByCreateTime(Long... values) {
+    public List<ScArticle> fetchByCreateTime(Timestamp... values) {
         return fetch(TScArticle.SC_ARTICLE.CREATE_TIME, values);
     }
 
     /**
      * Fetch records that have <code>update_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticle> fetchRangeOfUpdateTime(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticle> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TScArticle.SC_ARTICLE.UPDATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>update_time IN (values)</code>
      */
-    public List<ScArticle> fetchByUpdateTime(Long... values) {
+    public List<ScArticle> fetchByUpdateTime(Timestamp... values) {
         return fetch(TScArticle.SC_ARTICLE.UPDATE_TIME, values);
     }
 
@@ -179,28 +208,28 @@ public class ScArticleDao extends ExtendDAOImpl<ScArticleRecord, ScArticle, Long
     /**
      * Fetch records that have <code>body_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticle> fetchRangeOfBodyId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticle> fetchRangeOfBodyId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticle.SC_ARTICLE.BODY_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>body_id IN (values)</code>
      */
-    public List<ScArticle> fetchByBodyId(Long... values) {
+    public List<ScArticle> fetchByBodyId(String... values) {
         return fetch(TScArticle.SC_ARTICLE.BODY_ID, values);
     }
 
     /**
      * Fetch records that have <code>category_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScArticle> fetchRangeOfCategoryId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScArticle> fetchRangeOfCategoryId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScArticle.SC_ARTICLE.CATEGORY_ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>category_id IN (values)</code>
      */
-    public List<ScArticle> fetchByCategoryId(Long... values) {
+    public List<ScArticle> fetchByCategoryId(String... values) {
         return fetch(TScArticle.SC_ARTICLE.CATEGORY_ID, values);
     }
 }

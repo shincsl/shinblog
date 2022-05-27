@@ -9,12 +9,12 @@ import com.shin.blog.jooq.model.generated.Keys;
 import com.shin.blog.jooq.model.generated.Shinblog;
 import com.shin.blog.jooq.model.generated.tables.records.ScCommentRecord;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -53,7 +53,7 @@ public class TScComment extends TableImpl<ScCommentRecord> {
     /**
      * The column <code>shinblog.sc_comment.id</code>.
      */
-    public final TableField<ScCommentRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ScCommentRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_comment.content</code>.
@@ -61,14 +61,14 @@ public class TScComment extends TableImpl<ScCommentRecord> {
     public final TableField<ScCommentRecord, String> CONTENT = createField(DSL.name("content"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>shinblog.sc_comment.create_date</code>.
+     * The column <code>shinblog.sc_comment.create_time</code>.
      */
-    public final TableField<ScCommentRecord, Long> CREATE_DATE = createField(DSL.name("create_date"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ScCommentRecord, Timestamp> CREATE_TIME = createField(DSL.name("create_time"), SQLDataType.TIMESTAMP(0).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_comment.article_id</code>.
      */
-    public final TableField<ScCommentRecord, Long> ARTICLE_ID = createField(DSL.name("article_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ScCommentRecord, String> ARTICLE_ID = createField(DSL.name("article_id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_comment.author_id</code>.
@@ -78,7 +78,7 @@ public class TScComment extends TableImpl<ScCommentRecord> {
     /**
      * The column <code>shinblog.sc_comment.parent_id</code>.
      */
-    public final TableField<ScCommentRecord, Long> PARENT_ID = createField(DSL.name("parent_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ScCommentRecord, String> PARENT_ID = createField(DSL.name("parent_id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_comment.to_uid</code>.
@@ -88,7 +88,7 @@ public class TScComment extends TableImpl<ScCommentRecord> {
     /**
      * The column <code>shinblog.sc_comment.level</code>.
      */
-    public final TableField<ScCommentRecord, String> LEVEL = createField(DSL.name("level"), SQLDataType.VARCHAR(1).nullable(false), this, "");
+    public final TableField<ScCommentRecord, Integer> LEVEL = createField(DSL.name("level"), SQLDataType.INTEGER.nullable(false), this, "");
 
     private TScComment(Name alias, Table<ScCommentRecord> aliased) {
         this(alias, aliased, null);
@@ -134,11 +134,6 @@ public class TScComment extends TableImpl<ScCommentRecord> {
     }
 
     @Override
-    public Identity<ScCommentRecord, Long> getIdentity() {
-        return (Identity<ScCommentRecord, Long>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<ScCommentRecord> getPrimaryKey() {
         return Keys.KEY_SC_COMMENT_PRIMARY;
     }
@@ -179,7 +174,7 @@ public class TScComment extends TableImpl<ScCommentRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<Long, String, Long, Long, Long, Long, Long, String> fieldsRow() {
+    public Row8<String, String, Timestamp, String, Long, String, Long, Integer> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 }

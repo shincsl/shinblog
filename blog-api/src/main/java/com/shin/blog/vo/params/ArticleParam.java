@@ -1,7 +1,7 @@
 package com.shin.blog.vo.params;
 
-import com.shin.blog.vo.CategoryVo;
-import com.shin.blog.vo.TagVo;
+import com.shin.blog.jooq.model.entity.ScCategory;
+import com.shin.blog.jooq.model.entity.ScTag;
 import lombok.Data;
 
 import java.util.List;
@@ -9,15 +9,15 @@ import java.util.List;
 @Data
 public class ArticleParam {
 
-    private Long id;
+    private String id;
 
     private ArticleBodyParam body;
 
-    private CategoryVo category;
+    private ScCategory category;
 
     private String summary;
 
-    private List<TagVo> tags;
+    private List<ScTag> tags;
 
     private String title;
 }

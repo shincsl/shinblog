@@ -1,13 +1,13 @@
 package com.shin.blog.service;
 
+import com.shin.blog.jooq.model.entity.ScTag;
 import com.shin.blog.vo.Result;
-import com.shin.blog.vo.TagVo;
 
 import java.util.List;
 
 public interface TagService {
 
-    List<TagVo> findTagsByArticleId(Long articleId);
+    List<ScTag> findTagsByArticleId(String articleId);
 
     Result hots(int limit);
 
@@ -19,5 +19,5 @@ public interface TagService {
 
     Result findAllDetail();
 
-    Result findAllDetailById(Long id);
+    Result findAllDetailById(String id);
 }

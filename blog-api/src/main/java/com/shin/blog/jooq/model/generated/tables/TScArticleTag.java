@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -53,17 +52,17 @@ public class TScArticleTag extends TableImpl<ScArticleTagRecord> {
     /**
      * The column <code>shinblog.sc_article_tag.id</code>.
      */
-    public final TableField<ScArticleTagRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ScArticleTagRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_article_tag.article_id</code>.
      */
-    public final TableField<ScArticleTagRecord, Long> ARTICLE_ID = createField(DSL.name("article_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ScArticleTagRecord, String> ARTICLE_ID = createField(DSL.name("article_id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_article_tag.tag_id</code>.
      */
-    public final TableField<ScArticleTagRecord, Long> TAG_ID = createField(DSL.name("tag_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ScArticleTagRecord, String> TAG_ID = createField(DSL.name("tag_id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     private TScArticleTag(Name alias, Table<ScArticleTagRecord> aliased) {
         this(alias, aliased, null);
@@ -109,11 +108,6 @@ public class TScArticleTag extends TableImpl<ScArticleTagRecord> {
     }
 
     @Override
-    public Identity<ScArticleTagRecord, Long> getIdentity() {
-        return (Identity<ScArticleTagRecord, Long>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<ScArticleTagRecord> getPrimaryKey() {
         return Keys.KEY_SC_ARTICLE_TAG_PRIMARY;
     }
@@ -154,7 +148,7 @@ public class TScArticleTag extends TableImpl<ScArticleTagRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Long, Long, Long> fieldsRow() {
+    public Row3<String, String, String> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 }

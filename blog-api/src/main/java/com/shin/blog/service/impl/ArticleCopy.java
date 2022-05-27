@@ -1,16 +1,17 @@
 package com.shin.blog.service.impl;
 
-import com.shin.blog.dao.mapper.ArticleBodyMapper;
-import com.shin.blog.dao.pojo.Article;
-import com.shin.blog.dao.pojo.ArticleBody;
-import com.shin.blog.dao.pojo.SysUser;
+import com.shin.blog.jooq.model.entity.ScArticle;
+import com.shin.blog.jooq.model.entity.ScArticleBody;
+import com.shin.blog.jooq.model.entity.ScSysUser;
+import com.shin.blog.jooq.model.entity.ScTag;
+import com.shin.blog.jooq.model.generated.tables.daos.ScArticleBodyDao;
+import com.shin.blog.jooq.model.generated.tables.daos.ScCategoryDao;
+import com.shin.blog.jooq.model.generated.tables.daos.ScSysUserDao;
 import com.shin.blog.service.CategoryService;
 import com.shin.blog.service.SysUserService;
 import com.shin.blog.service.TagService;
 import com.shin.blog.vo.ArticleBodyVo;
-import com.shin.blog.vo.ArticleVo;
-import org.joda.time.DateTime;
-import org.springframework.beans.BeanUtils;
+import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,61 +28,58 @@ public class ArticleCopy {
     SysUserService sysUserService;
 
     @Autowired
-    ArticleBodyMapper articleBodyMapper;
-
-    @Autowired
     CategoryService categoryService;
 
-    public List<ArticleVo> copyList(List<Article> records, boolean isTag, boolean isAuthor) {
-        List<ArticleVo> articleVoList = new ArrayList<>();
-        for (Article record : records) {
-            articleVoList.add(copy(record, isTag, isAuthor, false, false));
+    @Autowired
+    DSLContext dslContext;
+
+    public List<ScArticle> copyList(List<ScArticle> records, boolean isTag, boolean isAuthor) {
+        List<ScArticle> scArticleList = new ArrayList<>();
+        for (ScArticle record : records) {
+            scArticleList.add(copy(record, isTag, isAuthor, false, false));
         }
-        return articleVoList;
+        return scArticleList;
     }
 
-    public List<ArticleVo> copyList(List<Article> records, boolean isTag, boolean isAuthor, boolean isBody, boolean isCategory) {
-        List<ArticleVo> articleVoList = new ArrayList<>();
-        for (Article record : records) {
+    public List<ScArticle> copyList(List<ScArticle> records, boolean isTag, boolean isAuthor, boolean isBody, boolean isCategory) {
+        List<ScArticle> articleVoList = new ArrayList<>();
+        for (ScArticle record : records) {
             articleVoList.add(copy(record, isTag, isAuthor, isBody, isCategory));
         }
         return articleVoList;
     }
 
-    public ArticleVo copy(Article article, boolean isTag, boolean isAuthor, boolean isBody, boolean isCategory) {
-        ArticleVo articleVo = new ArticleVo();
-        articleVo.setId(String.valueOf(article.getId()));
-        BeanUtils.copyProperties(article, articleVo);
-
-        articleVo.setCreateTime(new DateTime(article.getCreateTime()).toString("yyyy-MM-dd HH:mm"));
-        articleVo.setUpdateTime(new DateTime(article.getUpdateTime()).toString("yyyy-MM-dd HH:mm"));
-
+    public ScArticle copy(ScArticle article, boolean isTag, boolean isAuthor, boolean isBody, boolean isCategory) {
         //不是所有的接口都需要标签、作者信息
         if (isTag) {
-            Long articleId = article.getId();
-            articleVo.setTags(tagService.findTagsByArticleId(articleId));
+            String articleId = article.getId();
+            List<ScTag> tags = tagService.findTagsByArticleId(articleId);
+            article.setTags(tags);
         }
         if (isAuthor) {
             Long authorId = article.getAuthorId();
-            SysUser user = sysUserService.findUserById(authorId);
-            articleVo.setAuthor(user.getNickname());
-            articleVo.setAvatar(user.getAvatar());
+            ScSysUserDao scSysUserDao = new ScSysUserDao(dslContext.configuration());
+            ScSysUser scSysUser = scSysUserDao.fetchOneById(authorId);
+            article.setAuthor(scSysUser.getNickname());
+            article.setAvatar(scSysUser.getAvatar());
         }
         if (isBody) {
-            Long bodyId = article.getBodyId();
-            articleVo.setBody(findArticleBodyById(bodyId));
+            String bodyId = article.getBodyId();
+            article.setBody(findArticleBodyById(bodyId));
         }
         if (isCategory) {
-            Long categoryId = article.getCategoryId();
-            articleVo.setCategory(categoryService.findCategoryById(categoryId));
+            String categoryId = article.getCategoryId();
+            ScCategoryDao scCategoryDao = new ScCategoryDao(dslContext.configuration());
+            article.setCategory(scCategoryDao.fetchOneById(categoryId));
         }
-        return articleVo;
+        return article;
     }
 
-    public ArticleBodyVo findArticleBodyById(Long bodyId) {
-        ArticleBody articleBody = articleBodyMapper.selectById(bodyId);
+    public ArticleBodyVo findArticleBodyById(String bodyId) {
+        ScArticleBodyDao scArticleBodyDao = new ScArticleBodyDao(dslContext.configuration());
+        ScArticleBody scArticleBody = scArticleBodyDao.fetchOneById(bodyId);
         ArticleBodyVo articleBodyVo = new ArticleBodyVo();
-        articleBodyVo.setContent(articleBody.getContent());
+        articleBodyVo.setContent(scArticleBody.getContent());
         return articleBodyVo;
     }
 }

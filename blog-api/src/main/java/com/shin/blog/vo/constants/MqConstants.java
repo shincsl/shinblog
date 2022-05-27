@@ -1,4 +1,4 @@
-package com.shin.blog.constants;
+package com.shin.blog.vo.constants;
 
 public class MqConstants {
 

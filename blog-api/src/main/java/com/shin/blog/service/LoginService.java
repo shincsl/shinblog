@@ -1,6 +1,6 @@
 package com.shin.blog.service;
 
-import com.shin.blog.dao.pojo.SysUser;
+import com.shin.blog.jooq.model.entity.ScSysUser;
 import com.shin.blog.vo.Result;
 import com.shin.blog.vo.params.LoginParam;
 
@@ -12,7 +12,7 @@ public interface LoginService {
      */
     Result login(LoginParam loginParam);
 
-    SysUser checkToken(String token);
+    ScSysUser checkToken(String token);
 
     /**
      * 退出登录

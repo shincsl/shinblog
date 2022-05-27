@@ -5,6 +5,7 @@ package com.shin.blog.jooq.model.generated.tables.interfaces;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 
 /**
@@ -16,12 +17,32 @@ public interface IScArticle extends Serializable {
     /**
      * Setter for <code>shinblog.sc_article.id</code>.
      */
-    public void setId(Long value);
+    public void setId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article.id</code>.
      */
-    public Long getId();
+    public String getId();
+
+    /**
+     * Setter for <code>shinblog.sc_article.deleted</code>. 逻辑删除标识,0标识未删除,1标识已删除
+     */
+    public void setDeleted(Integer value);
+
+    /**
+     * Getter for <code>shinblog.sc_article.deleted</code>. 逻辑删除标识,0标识未删除,1标识已删除
+     */
+    public Integer getDeleted();
+
+    /**
+     * Setter for <code>shinblog.sc_article.status</code>. 状态00在用01作废
+     */
+    public void setStatus(String value);
+
+    /**
+     * Getter for <code>shinblog.sc_article.status</code>. 状态00在用01作废
+     */
+    public String getStatus();
 
     /**
      * Setter for <code>shinblog.sc_article.comment_counts</code>. 评论数量
@@ -36,22 +57,22 @@ public interface IScArticle extends Serializable {
     /**
      * Setter for <code>shinblog.sc_article.create_time</code>. 创建时间
      */
-    public void setCreateTime(Long value);
+    public void setCreateTime(Timestamp value);
 
     /**
      * Getter for <code>shinblog.sc_article.create_time</code>. 创建时间
      */
-    public Long getCreateTime();
+    public Timestamp getCreateTime();
 
     /**
      * Setter for <code>shinblog.sc_article.update_time</code>. 更新时间
      */
-    public void setUpdateTime(Long value);
+    public void setUpdateTime(Timestamp value);
 
     /**
      * Getter for <code>shinblog.sc_article.update_time</code>. 更新时间
      */
-    public Long getUpdateTime();
+    public Timestamp getUpdateTime();
 
     /**
      * Setter for <code>shinblog.sc_article.summary</code>. 简介
@@ -106,22 +127,22 @@ public interface IScArticle extends Serializable {
     /**
      * Setter for <code>shinblog.sc_article.body_id</code>. 内容id
      */
-    public void setBodyId(Long value);
+    public void setBodyId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article.body_id</code>. 内容id
      */
-    public Long getBodyId();
+    public String getBodyId();
 
     /**
      * Setter for <code>shinblog.sc_article.category_id</code>. 类别id
      */
-    public void setCategoryId(Long value);
+    public void setCategoryId(String value);
 
     /**
      * Getter for <code>shinblog.sc_article.category_id</code>. 类别id
      */
-    public Long getCategoryId();
+    public String getCategoryId();
 
     // -------------------------------------------------------------------------
     // FROM and INTO

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class ScCategoryDao extends ExtendDAOImpl<ScCategoryRecord, ScCategory, Long> {
+public class ScCategoryDao extends ExtendDAOImpl<ScCategoryRecord, ScCategory, String> {
 
     /**
      * Create a new ScCategoryDao without any configuration
@@ -39,28 +39,28 @@ public class ScCategoryDao extends ExtendDAOImpl<ScCategoryRecord, ScCategory, L
     }
 
     @Override
-    public Long getId(ScCategory object) {
+    public String getId(ScCategory object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<ScCategory> fetchRangeOfId(Long lowerInclusive, Long upperInclusive) {
+    public List<ScCategory> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(TScCategory.SC_CATEGORY.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<ScCategory> fetchById(Long... values) {
+    public List<ScCategory> fetchById(String... values) {
         return fetch(TScCategory.SC_CATEGORY.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public ScCategory fetchOneById(Long value) {
+    public ScCategory fetchOneById(String value) {
         return fetchOne(TScCategory.SC_CATEGORY.ID, value);
     }
 

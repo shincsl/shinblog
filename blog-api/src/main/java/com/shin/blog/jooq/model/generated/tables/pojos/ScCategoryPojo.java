@@ -15,7 +15,7 @@ public class ScCategoryPojo implements IScCategory {
 
     private static final long serialVersionUID = 1L;
 
-    private Long   id;
+    private String id;
     private String avatar;
     private String categoryName;
     private String description;
@@ -30,7 +30,7 @@ public class ScCategoryPojo implements IScCategory {
     }
 
     public ScCategoryPojo(
-        Long   id,
+        String id,
         String avatar,
         String categoryName,
         String description
@@ -45,7 +45,7 @@ public class ScCategoryPojo implements IScCategory {
      * Getter for <code>shinblog.sc_category.id</code>.
      */
     @Override
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -53,7 +53,7 @@ public class ScCategoryPojo implements IScCategory {
      * Setter for <code>shinblog.sc_category.id</code>.
      */
     @Override
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

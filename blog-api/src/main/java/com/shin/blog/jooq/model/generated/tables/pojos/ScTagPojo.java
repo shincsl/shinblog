@@ -15,7 +15,7 @@ public class ScTagPojo implements IScTag {
 
     private static final long serialVersionUID = 1L;
 
-    private Long   id;
+    private String id;
     private String avatar;
     private String tagName;
 
@@ -28,7 +28,7 @@ public class ScTagPojo implements IScTag {
     }
 
     public ScTagPojo(
-        Long   id,
+        String id,
         String avatar,
         String tagName
     ) {
@@ -41,7 +41,7 @@ public class ScTagPojo implements IScTag {
      * Getter for <code>shinblog.sc_tag.id</code>.
      */
     @Override
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -49,7 +49,7 @@ public class ScTagPojo implements IScTag {
      * Setter for <code>shinblog.sc_tag.id</code>.
      */
     @Override
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

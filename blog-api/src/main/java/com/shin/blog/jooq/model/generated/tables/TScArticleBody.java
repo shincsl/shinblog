@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -53,7 +52,7 @@ public class TScArticleBody extends TableImpl<ScArticleBodyRecord> {
     /**
      * The column <code>shinblog.sc_article_body.id</code>.
      */
-    public final TableField<ScArticleBodyRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ScArticleBodyRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>shinblog.sc_article_body.content</code>.
@@ -68,7 +67,7 @@ public class TScArticleBody extends TableImpl<ScArticleBodyRecord> {
     /**
      * The column <code>shinblog.sc_article_body.article_id</code>.
      */
-    public final TableField<ScArticleBodyRecord, Long> ARTICLE_ID = createField(DSL.name("article_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ScArticleBodyRecord, String> ARTICLE_ID = createField(DSL.name("article_id"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     private TScArticleBody(Name alias, Table<ScArticleBodyRecord> aliased) {
         this(alias, aliased, null);
@@ -114,11 +113,6 @@ public class TScArticleBody extends TableImpl<ScArticleBodyRecord> {
     }
 
     @Override
-    public Identity<ScArticleBodyRecord, Long> getIdentity() {
-        return (Identity<ScArticleBodyRecord, Long>) super.getIdentity();
-    }
-
-    @Override
     public UniqueKey<ScArticleBodyRecord> getPrimaryKey() {
         return Keys.KEY_SC_ARTICLE_BODY_PRIMARY;
     }
@@ -159,7 +153,7 @@ public class TScArticleBody extends TableImpl<ScArticleBodyRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<Long, String, String, Long> fieldsRow() {
+    public Row4<String, String, String, String> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 }
